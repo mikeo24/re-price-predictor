@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import joblib
 from datetime import datetime
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model", "final_pipeline_compressed.joblib")
@@ -20,6 +20,12 @@ MODEL_MEDAPE = 0.123
 REQUIRED_PROPERTY_FIELDS = ["zip_code", "bed", "bath", "house_size", "acre_lot"]
 
 app = Flask("price_prediction")
+
+
+@app.route("/", methods=["GET"])
+def index():
+    return render_template("index.html")
+
 
 @app.route("/health", methods=["GET"])
 def health():
