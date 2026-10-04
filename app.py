@@ -19,7 +19,25 @@ MODEL_MEDAPE = 0.123
 # Column groups the pipeline expects, in the raw (unlogged) units it was trained on
 REQUIRED_PROPERTY_FIELDS = ["zip_code", "bed", "bath", "house_size", "acre_lot"]
 
+# Market-side features looked up from the ZIP snapshot. Roughly a quarter of ZIPs
+# have gaps in some of these (Redfin/Zillow don't cover every ZIP), so we track
+# which ones are missing instead of letting a NaN crash the request.
+MARKET_NUMERIC_FIELDS = [
+    "zhvi", "median_ppsf", "active_listing_count", "homes_sold",
+    "median_days_on_market", "avg_sale_to_list", "sold_above_list",
+    "price_reduced_share",
+]
+MARKET_FIELDS = MARKET_NUMERIC_FIELDS + ["parent_metro_region"]
+
 app = Flask("price_prediction")
+
+
+def _clean(value, ndigits=None, scale=1.0):
+    """Return a JSON-safe number, or None if the value is missing/NaN."""
+    if value is None or pd.isna(value):
+        return None
+    out = float(value) * scale
+    return round(out, ndigits) if ndigits is not None else round(out)
 
 
 @app.route("/", methods=["GET"])
@@ -50,6 +68,7 @@ def predict():
         return jsonify({"error": f"No market data available for ZIP {zip_code}."}), 404
 
     market_row = market_snapshot.loc[zip_code]
+    missing_market = [f for f in MARKET_FIELDS if pd.isna(market_row[f])]
 
     # --- assemble the one-row input the pipeline expects ---
     try:
@@ -77,7 +96,22 @@ def predict():
     X = pd.DataFrame([row])
 
     # --- predict (pipeline returns real dollars directly) ---
-    price = float(model.predict(X)[0])
+    try:
+        price = float(model.predict(X)[0])
+        if not np.isfinite(price):
+            raise ValueError("model returned a non-finite prediction")
+    except Exception:
+        app.logger.exception("Prediction failed for ZIP %s (missing market fields: %s)",
+                             zip_code, missing_market)
+        if missing_market:
+            return jsonify({
+                "error": (f"Market data for ZIP {zip_code} is incomplete "
+                          f"({len(missing_market)} of {len(MARKET_FIELDS)} market signals unavailable), "
+                          "so a reliable estimate can't be produced for this ZIP."),
+                "missing_market_fields": missing_market,
+            }), 422
+        return jsonify({"error": "The model couldn't produce an estimate for these inputs."}), 500
+
     low = price * (1 - MODEL_MEDAPE)
     high = price * (1 + MODEL_MEDAPE)
 
@@ -85,12 +119,13 @@ def predict():
         "estimate": round(price),
         "range_low": round(low),
         "range_high": round(high),
+        "missing_market_fields": missing_market,
         "market_context": {
             "zip_code": zip_code,
-            "typical_home_value": round(float(market_row["zhvi"])),
-            "price_per_sqft": round(float(market_row["median_ppsf"])),
-            "median_days_on_market": round(float(market_row["median_days_on_market"])),
-            "sold_above_list_pct": round(float(market_row["sold_above_list"]) * 100, 1),
+            "typical_home_value": _clean(market_row["zhvi"]),
+            "price_per_sqft": _clean(market_row["median_ppsf"]),
+            "median_days_on_market": _clean(market_row["median_days_on_market"]),
+            "sold_above_list_pct": _clean(market_row["sold_above_list"], ndigits=1, scale=100),
         },
     })
 

@@ -24,6 +24,7 @@
     --danger-soft: #f9ece8;
     --shadow: 0 18px 45px rgba(9, 25, 41, 0.08);
     --shadow-sm: 0 8px 24px rgba(9, 25, 41, 0.06);
+    --radius: 18px;
     --focus: #38b98e;
   }
 
@@ -43,7 +44,7 @@
   }
 
   button, input { font: inherit; }
-  button { -webkit-tap-highlight-color: transparent; }
+  button, [role="button"] { -webkit-tap-highlight-color: transparent; }
 
   :focus-visible {
     outline: 3px solid rgba(56,185,142,.28);
@@ -54,33 +55,33 @@
   .topbar {
     background: var(--navy);
     color: #fff;
-    min-height: 62px;
+    min-height: 74px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid rgba(255,255,255,.08);
   }
 
   .topbar-inner {
-    width: min(1200px, calc(100% - 40px));
+    width: min(1440px, calc(100% - 40px));
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 14px;
+    gap: 24px;
   }
 
   .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
 
   .brand-mark {
-    width: 34px; height: 34px;
+    width: 39px; height: 39px;
     border: 3px solid #61d0ae;
     border-radius: 50%;
     display: grid; place-items: center;
-    color: #61d0ae; font-weight: 700; font-size: 15px;
+    color: #61d0ae; font-weight: 700; font-size: 16px;
     flex: 0 0 auto;
   }
 
-  .brand-name { font-size: 16px; font-weight: 700; letter-spacing: -.015em; white-space: nowrap; }
+  .brand-name { font-size: 17px; font-weight: 700; letter-spacing: -.015em; white-space: nowrap; }
   .brand-divider { width: 1px; height: 22px; background: rgba(255,255,255,.16); }
   .product-name { font-size: 13px; color: #aebbc6; white-space: nowrap; }
 
@@ -99,9 +100,15 @@
   }
 
   /* ---------- Page shell ---------- */
-  .shell { width: min(1200px, calc(100% - 40px)); margin: 0 auto; padding: 22px 0 48px; }
+  .shell { width: min(1440px, calc(100% - 40px)); margin: 0 auto; padding: 34px 0 70px; }
 
-  .page-head { margin-bottom: 18px; }
+  .page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 28px;
+    margin-bottom: 24px;
+  }
 
   .eyebrow {
     margin: 0 0 8px;
@@ -113,37 +120,75 @@
 
   .page-head h1 {
     margin: 0;
-    font-size: clamp(25px, 3.4vw, 34px);
+    font-size: clamp(28px, 4vw, 42px);
     line-height: 1.08;
     letter-spacing: -.04em;
     color: var(--navy);
   }
 
-  .page-head p { margin: 7px 0 0; max-width: 620px; color: var(--muted); font-size: 13px; line-height: 1.65; }
+  .page-head p { margin: 10px 0 0; max-width: 680px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+
+  .head-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .segmented {
+    display: inline-flex;
+    padding: 4px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .segmented button {
+    border: 0; background: transparent; color: var(--muted);
+    padding: 9px 12px; border-radius: 9px; cursor: pointer;
+    font-size: 12px; font-weight: 700;
+  }
+
+  .segmented button.active { background: var(--navy); color: #fff; }
+
+  .print-btn {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--navy);
+    padding: 10px 13px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 12px; font-weight: 700;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .print-btn:hover { border-color: var(--line-strong); }
 
   /* ---------- Dashboard layout ---------- */
   .dashboard {
     display: grid;
     grid-template-columns: minmax(275px, 330px) minmax(0, 1fr);
-    gap: 18px;
+    gap: 24px;
     align-items: start;
   }
 
-  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-sm); }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
 
   /* ---------- Inputs ---------- */
   .input-panel { position: sticky; top: 20px; overflow: hidden; }
 
-  .input-panel-head { padding: 16px 17px 14px; background: var(--navy); color: #fff; }
+  .input-panel-head { padding: 20px 20px 17px; background: var(--navy); color: #fff; }
 
   .step-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; color: #61d0ae; margin-bottom: 8px; }
-  .input-panel-head h2 { margin: 0; font-size: 16px; letter-spacing: -.02em; }
-  .input-panel-head p { margin: 6px 0 0; color: #afbdc7; font-size: 12px; line-height: 1.5; }
+  .input-panel-head h2 { margin: 0; font-size: 18px; letter-spacing: -.02em; }
+  .input-panel-head p { margin: 6px 0 0; color: #afbdc7; font-size: 12px; line-height: 1.55; }
 
-  .form-body { padding: 16px 17px 17px; }
+  .form-body { padding: 20px; }
 
-  .field { margin-bottom: 11px; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .field { margin-bottom: 15px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
 
   label {
     display: flex; align-items: center; justify-content: space-between; gap: 8px;
@@ -153,11 +198,11 @@
   .label-meta { font-weight: 500; color: var(--muted-2); }
 
   input[type="number"], input[type="text"] {
-    width: 100%; min-height: 38px;
+    width: 100%; min-height: 42px;
     border: 1px solid var(--line-strong);
     border-radius: 10px;
     background: #fff; color: var(--navy);
-    padding: 8px 10px; font-size: 13px;
+    padding: 9px 11px; font-size: 13px;
     transition: border-color .15s ease, box-shadow .15s ease;
   }
 
@@ -166,7 +211,6 @@
     outline: none; border-color: var(--green);
     box-shadow: 0 0 0 3px rgba(28,158,117,.12);
   }
-  input:invalid { border-color: var(--line-strong); }
 
   .field-error {
     color: var(--danger);
@@ -180,7 +224,7 @@
   .estimate-btn {
     width: 100%; border: 0; border-radius: 11px;
     background: var(--green); color: #fff;
-    padding: 11px 13px; cursor: pointer;
+    padding: 12px 14px; cursor: pointer;
     font-weight: 800; font-size: 13px; margin-top: 3px;
     box-shadow: 0 8px 18px rgba(28,158,117,.20);
     transition: transform .15s ease, background .15s ease, box-shadow .15s ease, opacity .15s ease;
@@ -191,7 +235,7 @@
   .estimate-btn:disabled { opacity: .65; cursor: progress; transform: none; }
 
   .prototype-note {
-    margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--line);
+    margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--line);
     display: flex; gap: 9px; align-items: flex-start;
     color: var(--muted); font-size: 10.5px; line-height: 1.5;
   }
@@ -204,19 +248,19 @@
 
   /* ---------- Results ---------- */
   .report { min-width: 0; }
-  .report-stack { display: grid; gap: 14px; }
+  .report-stack { display: grid; gap: 18px; }
 
-  .result-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-sm); }
+  .result-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
 
   .valuation-card { overflow: hidden; }
 
-  .valuation-main { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 26px; padding: 20px 22px 17px; }
+  .valuation-main { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 26px; padding: 25px 28px 22px; }
 
   .property-kicker { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 11.5px; margin-bottom: 12px; }
   .property-kicker .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
 
   .valuation-label { color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; }
-  .hero-value { margin: 3px 0 5px; color: var(--navy); font-size: clamp(36px, 5vw, 54px); line-height: .98; letter-spacing: -.055em; font-weight: 750; }
+  .hero-value { margin: 4px 0 7px; color: var(--navy); font-size: clamp(42px, 6vw, 66px); line-height: .98; letter-spacing: -.055em; font-weight: 750; }
   .hero-range { color: var(--muted); font-size: 13px; }
 
   .market-badge {
@@ -225,8 +269,10 @@
     padding: 8px 11px; border-radius: 999px;
     font-size: 11px; font-weight: 800; white-space: nowrap;
   }
+  .market-badge.cool { background: #f9ece8; border-color: #f0d4cc; color: var(--danger); }
+  .market-badge.balanced { background: #eef3f5; border-color: var(--line-strong); color: var(--navy); }
 
-  .range-band { margin: 0 22px 18px; }
+  .range-band { margin: 0 28px 24px; }
   .range-track { position: relative; height: 10px; background: #e7edf0; border-radius: 999px; }
   .range-fill { position: absolute; inset: 0 10% 0 10%; border-radius: 999px; background: linear-gradient(90deg, #bfe8da 0%, var(--green) 50%, #bfe8da 100%); }
   .range-marker {
@@ -238,19 +284,26 @@
   .range-labels { display: flex; justify-content: space-between; margin-top: 8px; color: var(--muted-2); font-size: 10.5px; }
 
   .valuation-footer { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); background: var(--surface-2); }
-  .metric { padding: 12px 14px; min-width: 0; min-height: 72px; border-right: 1px solid var(--line); }
+  .metric { padding: 16px 18px; min-width: 0; border-right: 1px solid var(--line); }
   .metric:last-child { border-right: 0; }
   .metric-label { color: var(--muted); font-size: 10.5px; margin-bottom: 5px; }
-  .metric-value { color: var(--navy); font-size: 17px; font-weight: 750; letter-spacing: -.025em; }
+  .metric-value { color: var(--navy); font-size: 19px; font-weight: 750; letter-spacing: -.025em; }
   .metric-note { color: var(--muted-2); font-size: 9.5px; margin-top: 3px; }
 
-  .section-card { padding: 18px 20px; }
-  .section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
-  .section-head h3 { margin: 0; font-size: 16px; color: var(--navy); letter-spacing: -.025em; }
+  .data-note {
+    display: flex; gap: 9px; align-items: flex-start;
+    padding: 12px 18px; border-top: 1px solid var(--line);
+    background: #fdf6f3; color: var(--danger); font-size: 11px; line-height: 1.5;
+  }
+  .data-note .note-icon { background: var(--danger-soft); color: var(--danger); }
+
+  .section-card { padding: 22px 24px; }
+  .section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+  .section-head h3 { margin: 0; font-size: 17px; color: var(--navy); letter-spacing: -.025em; }
   .section-head p { margin: 5px 0 0; color: var(--muted); font-size: 11.5px; line-height: 1.5; }
   .section-chip { flex: 0 0 auto; font-size: 10px; font-weight: 800; color: var(--green-dark); background: var(--green-soft); border-radius: 999px; padding: 6px 9px; }
 
-  /* ---------- Methodology panel ---------- */
+  /* ---------- Methodology panel (agent view) ---------- */
   .method-panel { background: var(--navy); color: #fff; border-color: var(--navy); overflow: hidden; }
   .method-panel .section-head h3 { color: #fff; }
   .method-panel .section-head p { color: #a9b8c4; }
@@ -286,31 +339,46 @@
   .loading-state strong { color: var(--navy); display: block; margin-bottom: 5px; }
   .loading-state p { max-width: 360px; margin: 0 auto; font-size: 11.5px; line-height: 1.6; }
 
-  .disclaimer { margin-top: 16px; color: var(--muted-2); font-size: 10.5px; line-height: 1.6; text-align: center; }
+  .disclaimer { margin-top: 22px; color: var(--muted-2); font-size: 10.5px; line-height: 1.6; text-align: center; }
   .disclaimer strong { color: var(--muted); }
 
   /* ---------- Responsive ---------- */
   @media (max-width: 980px) {
     .dashboard { grid-template-columns: 1fr; }
     .input-panel { position: static; }
+    .page-head { align-items: flex-start; flex-direction: column; }
+    .head-controls { justify-content: flex-start; }
   }
 
   @media (max-width: 700px) {
-    .topbar-inner, .shell { width: min(100% - 24px, 1200px); }
+    .topbar-inner, .shell { width: min(100% - 24px, 1440px); }
     .product-name, .brand-divider, .status-pill { display: none; }
     .shell { padding-top: 24px; }
-    .valuation-main { grid-template-columns: 1fr; padding: 18px 17px 15px; gap: 18px; }
+    .valuation-main { grid-template-columns: 1fr; padding: 22px 20px 18px; }
     .market-badge { justify-self: start; }
-    .range-band { margin: 0 17px 16px; }
+    .range-band { margin: 0 20px 20px; }
     .valuation-footer { grid-template-columns: 1fr 1fr; }
     .metric:nth-child(2) { border-right: 0; }
     .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-    .section-card { padding: 17px; }
+    .section-card { padding: 20px; }
     .method-grid { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 520px) {
     .field-row { grid-template-columns: 1fr; gap: 0; }
+    .head-controls { width: 100%; }
+    .segmented { width: 100%; }
+    .segmented button { flex: 1; }
+    .print-btn { width: 100%; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .topbar, .input-panel, .head-controls, .disclaimer { display: none !important; }
+    .shell { width: 100%; padding: 0; }
+    .dashboard { display: block; }
+    .result-card { break-inside: avoid; box-shadow: none; }
+    .report-stack { gap: 12px; }
   }
 </style>
 </head>
@@ -329,9 +397,18 @@
 
   <main class="shell">
     <section class="page-head">
-      <div class="eyebrow">Property intelligence</div>
-      <h1>Home valuation dashboard</h1>
-      <p>Combines property-level features with metro and ZIP-level market signals (Zillow, Redfin, Realtor.com) to estimate a listing price — the same signals a professional appraiser would weigh.</p>
+      <div>
+        <div class="eyebrow">Property intelligence</div>
+        <h1>Home valuation dashboard</h1>
+        <p>Combines property-level features with metro and ZIP-level market signals (Zillow, Redfin, Realtor.com) to estimate a listing price — the same signals a professional appraiser would weigh.</p>
+      </div>
+      <div class="head-controls">
+        <div class="segmented" role="group" aria-label="Report view">
+          <button type="button" class="active" id="consumerMode" aria-pressed="true">Buyer / seller</button>
+          <button type="button" id="agentMode" aria-pressed="false">Agent view</button>
+        </div>
+        <button class="print-btn" type="button" onclick="window.print()">Export PDF</button>
+      </div>
     </section>
 
     <section class="dashboard">
@@ -397,13 +474,21 @@
 <script>
   const MODEL_R2 = 0.87;
   const MODEL_MEDAPE = 12.3;
+  const MARKET_SIGNAL_COUNT = 9;
 
   const fmt = (n) => "$" + Math.round(n).toLocaleString("en-US");
+  // Market fields come back null when a ZIP has no coverage from Zillow/Redfin/Realtor.com.
+  const dash = (v, f = (x) => x) => (v === null || v === undefined ? "—" : f(v));
+
   const reportEl = document.getElementById("report");
   const form = document.getElementById("valuationForm");
   const btn = document.getElementById("estimateBtn");
   const zipField = document.getElementById("zipField");
   const zipInput = document.getElementById("zip");
+
+  let currentMode = "consumer";
+  let lastData = null;
+  let lastInputs = null;
 
   function renderLoading() {
     reportEl.innerHTML = `
@@ -425,7 +510,56 @@
     `;
   }
 
+  // Market temperature badge, derived from the real sold-above-list figure the
+  // backend returns for this ZIP — not fabricated, just a simple read of real data.
+  function marketBadge(soldAboveListPct) {
+    if (soldAboveListPct === null || soldAboveListPct === undefined) return null;
+    if (soldAboveListPct >= 50) return { label: "Seller's market", cls: "" };
+    if (soldAboveListPct <= 20) return { label: "Buyer's market", cls: "cool" };
+    return { label: "Balanced market", cls: "balanced" };
+  }
+
   function renderReport(d, inputs) {
+    const badge = marketBadge(d.market_context.sold_above_list_pct);
+    const nMissing = (d.missing_market_fields || []).length;
+    const dataNote = nMissing ? `
+      <div class="data-note">
+        <span class="note-icon">!</span>
+        <span>Limited market data for this ZIP — ${nMissing} of ${MARKET_SIGNAL_COUNT} market signals aren't available,
+        so this estimate is less reliable than usual.</span>
+      </div>` : "";
+
+    const methodPanel = currentMode === "agent" ? `
+      <article class="result-card section-card method-panel">
+        <div class="section-head">
+          <div>
+            <h3>Model methodology</h3>
+            <p>How this estimate is produced.</p>
+          </div>
+          <span class="section-chip">Agent only</span>
+        </div>
+        <div class="method-grid">
+          <div class="method-metric">
+            <div class="label">R² · held-out test set</div>
+            <div class="value">${MODEL_R2.toFixed(2)}</div>
+          </div>
+          <div class="method-metric">
+            <div class="label">Median absolute % error</div>
+            <div class="value">±${MODEL_MEDAPE}%</div>
+          </div>
+          <div class="method-metric">
+            <div class="label">Model type</div>
+            <div class="value" style="font-size:16px">Random Forest</div>
+          </div>
+        </div>
+        <p class="method-note">
+          Trained on property-level listings combined with metro-level market indices (Zillow, Redfin) and ZIP-level
+          inventory and hotness signals (Realtor.com). Reported accuracy reflects a held-out test set. This is a
+          point-in-time estimate, not an appraisal — condition, renovations, and interior finishes are not captured here.
+        </p>
+      </article>
+    ` : "";
+
     reportEl.innerHTML = `
       <div class="report-stack">
         <article class="result-card valuation-card">
@@ -439,6 +573,7 @@
               <div class="hero-value">${fmt(d.estimate)}</div>
               <div class="hero-range">Likely range ${fmt(d.range_low)} – ${fmt(d.range_high)}</div>
             </div>
+            ${badge ? `<div class="market-badge ${badge.cls}">${badge.label}</div>` : ""}
           </div>
 
           <div class="range-band" aria-label="Estimated value range">
@@ -456,52 +591,26 @@
           <div class="valuation-footer">
             <div class="metric">
               <div class="metric-label">Typical home value (ZIP)</div>
-              <div class="metric-value">${fmt(d.market_context.typical_home_value)}</div>
+              <div class="metric-value">${dash(d.market_context.typical_home_value, fmt)}</div>
             </div>
             <div class="metric">
               <div class="metric-label">Price / sq ft</div>
-              <div class="metric-value">$${d.market_context.price_per_sqft}</div>
+              <div class="metric-value">${dash(d.market_context.price_per_sqft, (v) => "$" + v)}</div>
             </div>
             <div class="metric">
               <div class="metric-label">Median days on market</div>
-              <div class="metric-value">${d.market_context.median_days_on_market}</div>
+              <div class="metric-value">${dash(d.market_context.median_days_on_market)}</div>
             </div>
             <div class="metric">
               <div class="metric-label">Sold above asking</div>
-              <div class="metric-value">${d.market_context.sold_above_list_pct}%</div>
+              <div class="metric-value">${dash(d.market_context.sold_above_list_pct, (v) => v + "%")}</div>
               <div class="metric-note">of recent sales</div>
             </div>
           </div>
+          ${dataNote}
         </article>
 
-        <article class="result-card section-card method-panel">
-          <div class="section-head">
-            <div>
-              <h3>Model methodology</h3>
-              <p>How this estimate is produced.</p>
-            </div>
-            <span class="section-chip">About this model</span>
-          </div>
-          <div class="method-grid">
-            <div class="method-metric">
-              <div class="label">R² · held-out test set</div>
-              <div class="value">${MODEL_R2.toFixed(2)}</div>
-            </div>
-            <div class="method-metric">
-              <div class="label">Median absolute % error</div>
-              <div class="value">±${MODEL_MEDAPE}%</div>
-            </div>
-            <div class="method-metric">
-              <div class="label">Model type</div>
-              <div class="value" style="font-size:16px">Random Forest</div>
-            </div>
-          </div>
-          <p class="method-note">
-            Trained on property-level listings combined with metro-level market indices (Zillow, Redfin) and ZIP-level
-            inventory and hotness signals (Realtor.com). Reported accuracy reflects a held-out test set. This is a
-            point-in-time estimate, not an appraisal — condition, renovations, and interior finishes are not captured here.
-          </p>
-        </article>
+        ${methodPanel}
       </div>
     `;
   }
@@ -541,15 +650,24 @@
         }),
       });
 
-      const data = await res.json();
+      // A crashed server returns an HTML error page, not JSON — don't let that
+      // masquerade as a connection problem.
+      let data = null;
+      try { data = await res.json(); } catch (_) { /* non-JSON body */ }
 
-      if (!res.ok) {
-        renderError(data.error || "The server returned an unexpected error. Please try again.");
+      if (!res.ok || !data) {
+        lastData = null;
+        lastInputs = null;
+        renderError((data && data.error) || `The server returned an error (HTTP ${res.status}). Please try again.`);
         return;
       }
 
+      lastData = data;
+      lastInputs = inputs;
       renderReport(data, inputs);
     } catch (err) {
+      lastData = null;
+      lastInputs = null;
       renderError("Couldn't reach the prediction server. Check your connection and try again.");
     } finally {
       btn.disabled = false;
@@ -557,8 +675,23 @@
     }
   }
 
+  function setMode(mode) {
+    currentMode = mode;
+    const consumer = document.getElementById("consumerMode");
+    const agent = document.getElementById("agentMode");
+
+    consumer.classList.toggle("active", mode === "consumer");
+    agent.classList.toggle("active", mode === "agent");
+    consumer.setAttribute("aria-pressed", String(mode === "consumer"));
+    agent.setAttribute("aria-pressed", String(mode === "agent"));
+
+    if (lastData && lastInputs) renderReport(lastData, lastInputs);
+  }
+
   form.addEventListener("submit", onSubmit);
   zipInput.addEventListener("input", () => zipField.classList.remove("has-error"));
+  document.getElementById("consumerMode").addEventListener("click", () => setMode("consumer"));
+  document.getElementById("agentMode").addEventListener("click", () => setMode("agent"));
 
   // Load an initial estimate for the default sample inputs.
   form.requestSubmit();
