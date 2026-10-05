@@ -50,7 +50,7 @@ Random Forest won because it captures interactions a linear model cannot: the sa
 ## How the app works
 
 ```
-form input (ZIP, beds, baths, sq ft, lot) ──┐
+form input (ZIP, beds, baths, sq ft, lot) ───┐
                                              ├─> sklearn pipeline ─> estimate + range
 ZIP -> market snapshot lookup (9 signals) ───┘
 ```
