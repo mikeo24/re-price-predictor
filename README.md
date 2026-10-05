@@ -2,7 +2,7 @@
 
 Machine-learning home valuation that combines **what a property is** (beds, baths, size, lot) with **what the market around it is doing** (Zillow, Redfin and Realtor.com signals), the way an appraiser weighs both.
 
-**[Live demo](https://re-price-predictor.onrender.com)** · **[Notebooks repo](https://github.com/mikeo24/re-price-predictor-notebooks)**
+**[Live demo](https://re-price-predictor.onrender.com)** · **[Notebooks](notebooks/)**
 
 > Hosted on a free Render instance. The first request after idle time can take up to a minute while the server wakes up.
 
@@ -31,7 +31,7 @@ A listing price depends on the property and on local market conditions. Property
 | Redfin market tracker | Competition metrics: sale-to-list, days on market, price drops |
 | Realtor.com ZIP inventory | ZIP-level inventory and hotness scores |
 
-The five sources are cleaned and merged into one master dataset (see the [notebooks](https://github.com/mikeo24/re-price-predictor-notebooks)). Training uses sold records only, so asking and sold prices are never mixed.
+The five sources are cleaned and merged into one master dataset (see the [notebooks](notebooks/)). Training uses sold records only, so asking and sold prices are never mixed.
 
 ## Model development
 
@@ -86,6 +86,7 @@ Then open http://127.0.0.1:5000.
 app.py                  Flask API and dashboard route
 templates/index.html    Dashboard UI
 model/                  Trained pipeline and ZIP market snapshot
+notebooks/              Data collection, dataset merge and modeling notebooks
 docs/                   Dashboard screenshot
 requirements.txt
 ```
